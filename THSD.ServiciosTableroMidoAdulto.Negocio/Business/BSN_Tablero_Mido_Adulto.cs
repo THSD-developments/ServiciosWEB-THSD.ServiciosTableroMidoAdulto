@@ -81,7 +81,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
         }
 
 
-        public List<entElementoCombo> obtenerCboInstitucion(string PsCvePeriodo, string PsCveAlcance, string PnCvePeriodoDesde)
+        public List<entElementoCombo> obtenerCboInstitucion(string PsCvePeriodo, string PsCveAlcance, string PnCvePeriodoDesde, string PnCveOrigen)  //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
         {
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
             DataTable sqlDT = new DataTable();
@@ -91,6 +91,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
                 ParametersSQL.Add(new SqlParameter("@PnCvePeriodo", PsCvePeriodo));
                 ParametersSQL.Add(new SqlParameter("@PnCveAlcance", PsCveAlcance));
                 ParametersSQL.Add(new SqlParameter("@PnCvePeriodoDesde", PnCvePeriodoDesde));
+                ParametersSQL.Add(new SqlParameter("@PncveOrigen", PnCveOrigen));
                 sqlDT = new HelperSQL().ExecStoreProcedure("spObtenerCboInstitucionAdulto", ParametersSQL);
                 if (sqlDT != null)
                 {
@@ -110,7 +111,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
             return LaoValores;
         }
 
-        public List<entElementoCombo> obtenerCboEntidad(string PsCvePeriodo, string PsCveInstitucion, string PsCveAlcance, string PnCvePeriodoDesde)
+        public List<entElementoCombo> obtenerCboEntidad(string PsCvePeriodo, string PsCveInstitucion, string PsCveAlcance, string PnCvePeriodoDesde, string PnCveOrigen)  //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
         {
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
             DataTable sqlDT = new DataTable();
@@ -122,6 +123,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
                 ParametersSQL.Add(new SqlParameter("@PnCveInstitucion", PsCveInstitucion));
                 ParametersSQL.Add(new SqlParameter("@PnCveAlcance", PsCveAlcance));
                 ParametersSQL.Add(new SqlParameter("@PnCvePeriodoDesde", PnCvePeriodoDesde));
+                ParametersSQL.Add(new SqlParameter("@PncveOrigen", PnCveOrigen));
                 sqlDT = new HelperSQL().ExecStoreProcedure("spObtenerCboEntidadAdulto", ParametersSQL);
                 if (sqlDT != null)
                 {
@@ -141,7 +143,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
             return LaoValores;
         }
 
-        public List<entElementoCombo> obtenerCboJurisdiccion(string PsCvePeriodo, string PsCveInstitucion, string PsCveEntidad, string PnCvePeriodoDesde)
+        public List<entElementoCombo> obtenerCboJurisdiccion(string PsCvePeriodo, string PsCveInstitucion, string PsCveEntidad, string PnCvePeriodoDesde, string PnCveOrigen)  //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
         {
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
             DataTable sqlDT = new DataTable();
@@ -153,6 +155,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
                 ParametersSQL.Add(new SqlParameter("@PnCveInstitucion", PsCveInstitucion));
                 ParametersSQL.Add(new SqlParameter("@PnCveEntidad", PsCveEntidad));
                 ParametersSQL.Add(new SqlParameter("@PnCvePeriodoDesde", PnCvePeriodoDesde));
+                ParametersSQL.Add(new SqlParameter("@PncveOrigen", PnCveOrigen));
                 sqlDT = new HelperSQL().ExecStoreProcedure("spObtenerCboJurisdiccionAdulto", ParametersSQL);
                 if (sqlDT != null)
                 {
@@ -173,7 +176,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
         }
 
 
-        public List<entElementoCombo> obtenerCboUnidadSalud(string PsCvePeriodo, string PsCveInstitucion, string PsCveEntidad, string PnCveJurisdiccion, string PnCvePeriodoDesde)
+        public List<entElementoCombo> obtenerCboUnidadSalud(string PsCvePeriodo, string PsCveInstitucion, string PsCveEntidad, string PnCveJurisdiccion, string PnCvePeriodoDesde, string PnCveOrigen)  //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
         {
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
             DataTable sqlDT = new DataTable();
@@ -186,6 +189,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
                 ParametersSQL.Add(new SqlParameter("@PnCveEntidad", PsCveEntidad));
                 ParametersSQL.Add(new SqlParameter("@PnCveJurisdiccion", PnCveJurisdiccion));
                 ParametersSQL.Add(new SqlParameter("@PnCvePeriodoDesde", PnCvePeriodoDesde));
+                ParametersSQL.Add(new SqlParameter("@PncveOrigen", PnCveOrigen));
                 sqlDT = new HelperSQL().ExecStoreProcedure("spObtenerCboUnidadSaludAdulto", ParametersSQL);
                 if (sqlDT != null)
                 {
@@ -233,6 +237,36 @@ namespace THSD.ServiciosTableroMidoAdulto.Negocio.Business
             {
                 new HelperLog().LogError(ex.Message, "spObtenerDescripcionCombo");
             }
+            return LaoValores;
+        }
+
+
+        //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
+        public List<entElementoCombo> obtenerCboOrigenAdulto()
+        {
+            List<entElementoCombo> LaoValores = new List<entElementoCombo>();
+            DataTable sqlDT = new DataTable();
+
+            try
+            {
+                sqlDT = new HelperSQL().ExecStoreProcedure("spObtenerCboOrigenAdulto");
+
+                if (sqlDT != null)
+                {
+                    foreach (DataRow dr in sqlDT.Rows)
+                    {
+                        entElementoCombo LoValor = new entElementoCombo();
+                        LoValor.clave = dr["CveOrigen"].ToString();
+                        LoValor.descripcion = dr["Descripcion"].ToString();
+                        LaoValores.Add(LoValor);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new HelperLog().LogError(ex.Message, "spObtenerCboOrigenAdulto");
+            }
+
             return LaoValores;
         }
 

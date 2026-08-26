@@ -17,14 +17,14 @@ using System.Net.Http.Headers;
 /*
 Esta hoja alimenta los servicios de el TableroMidoAdulto
 URL del tablero  
-https://tableromidoadultoproduccion.azurewebsites.net/Mido/0?midoGlobal=99&entidad=-1&jurisdiccion=-1&unidadsalud=-1
+https://tableromidoadultoproduccion.azurewebsites.net/Mido/0?midoGlobal=99&entidad=-1&jurisdiccion=-1&unidadsalud=-1 --produccion
 
-https://tableromidoadultopruebas.azurewebsites.net/Mido/0?midoGlobal=99&entidad=-1&jurisdiccion=-1&unidadsalud=-1
+https://tableromidoadultopruebas.azurewebsites.net/Mido/0?midoGlobal=99&entidad=-1&jurisdiccion=-1&unidadsalud=-1 --pruebas
 
 servicios
 
-https://ServiciosTableroMidoAdulto.azurewebsites.net/
-https://ServiciosTableroMidoAdultoPruebas.azurewebsites.net/
+https://serviciostableromidoadulto-c6h0bucsa7gnejf8.southcentralus-01.azurewebsites.net/ --produccion
+https://serviciostableromidoadultopruebas-akcxhpcse2dde0fk.southcentralus-01.azurewebsites.net/ --pruebas
 */
 
 
@@ -74,7 +74,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Controllers
         {
             BSN_Tablero_Mido_Adulto LoMidoAdulto = new BSN_Tablero_Mido_Adulto();
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
-            LaoValores = LoMidoAdulto.obtenerCboInstitucion(PoFiltros.cvePeriodo, PoFiltros.cveAlcance, PoFiltros.cvePeriodoDesde);
+            LaoValores = LoMidoAdulto.obtenerCboInstitucion(PoFiltros.cvePeriodo, PoFiltros.cveAlcance, PoFiltros.cvePeriodoDesde, PoFiltros.cveOrigen);   //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
             return Ok(LaoValores);
         }
 
@@ -85,7 +85,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Controllers
         {
             BSN_Tablero_Mido_Adulto LoMidoAdulto = new BSN_Tablero_Mido_Adulto();
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
-            LaoValores = LoMidoAdulto.obtenerCboEntidad(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveAlcance, PoFiltros.cvePeriodoDesde);
+            LaoValores = LoMidoAdulto.obtenerCboEntidad(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveAlcance, PoFiltros.cvePeriodoDesde, PoFiltros.cveOrigen);   //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
             return Ok(LaoValores);
         }
 
@@ -97,7 +97,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Controllers
         {
             BSN_Tablero_Mido_Adulto LoMidoAdulto = new BSN_Tablero_Mido_Adulto();
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
-            LaoValores = LoMidoAdulto.obtenerCboJurisdiccion(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveEntidad, PoFiltros.cvePeriodoDesde);
+            LaoValores = LoMidoAdulto.obtenerCboJurisdiccion(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveEntidad, PoFiltros.cvePeriodoDesde, PoFiltros.cveOrigen);   //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
             return Ok(LaoValores);
         }
 
@@ -108,7 +108,7 @@ namespace THSD.ServiciosTableroMidoAdulto.Controllers
         {
             BSN_Tablero_Mido_Adulto LoMidoAdulto = new BSN_Tablero_Mido_Adulto();
             List<entElementoCombo> LaoValores = new List<entElementoCombo>();
-            LaoValores = LoMidoAdulto.obtenerCboUnidadSalud(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveEntidad, PoFiltros.cveJurisdiccion, PoFiltros.cvePeriodoDesde);
+            LaoValores = LoMidoAdulto.obtenerCboUnidadSalud(PoFiltros.cvePeriodo, PoFiltros.cveInstitucion, PoFiltros.cveEntidad, PoFiltros.cveJurisdiccion, PoFiltros.cvePeriodoDesde, PoFiltros.cveOrigen);   //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
             return Ok(LaoValores);
         }
 
@@ -124,6 +124,17 @@ namespace THSD.ServiciosTableroMidoAdulto.Controllers
             return Ok(LaoValores);
         }
 
+        //Se agrega CboOrigenAdulto - DMZ - 2026-Marzo-11
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("wmCboOrigenAdulto")]
+        public IHttpActionResult wmCboOrigenAdulto(entFiltros PoFiltros)
+        {
+            BSN_Tablero_Mido_Adulto LoMidoAdulto = new BSN_Tablero_Mido_Adulto();
+            List<entElementoCombo> LaoValores = new List<entElementoCombo>();
+            LaoValores = LoMidoAdulto.obtenerCboOrigenAdulto();
+            return Ok(LaoValores);
+        }
 
 
         [HttpPost]
